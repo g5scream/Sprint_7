@@ -17,6 +17,7 @@
 
 ### Структура проекта
     Sprint_6/
+    ├── allure-results/
     ├── conftest.py
     ├── urls.py
     ├── general_action.py
