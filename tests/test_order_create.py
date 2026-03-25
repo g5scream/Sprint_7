@@ -1,7 +1,8 @@
 import pytest
 import allure
 from data import ApiData
-from urls import create_order
+from conftest import attach_response_to_allure
+from api_client import *
 from general_action import generate_order_payload 
 
 @allure.suite('Тесты создания заказов')
@@ -15,8 +16,11 @@ class TestOrderCreation:
     ])
     def test_create_order_with_color(self, color):
         payload = generate_order_payload(color=color)       
-        response = create_order(payload)
+        response = ApiClient.create_order(payload)
         
-        print(f"Тело ответа : {response.text}")
+        attach_response_to_allure(response)
+        
+        response_json = response.json()
 
-        assert ApiData.RESPONSE_FIELD_TRACK in response.json()
+        assert response.status_code == ApiData.HTTP_STATUS_CREATED
+        assert ApiData.RESPONSE_FIELD_TRACK in str(response_json)
