@@ -23,3 +23,7 @@ class ApiClient:
     def get_orders():
         return requests.get(ORDERS_ENDPOINT)
     
+    @staticmethod
+    @allure.step("Удаление курьера")
+    def delete_courier(courier_id):
+        return requests.delete(f"{COURIER_ENDPOINT}/{courier_id}")
